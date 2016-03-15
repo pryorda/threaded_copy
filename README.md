@@ -1,5 +1,5 @@
 # threaded_copy
 ```
-python threaded_copy -s Original -d New
+python threaded_copy.py -s Original -d New
 ```
 
