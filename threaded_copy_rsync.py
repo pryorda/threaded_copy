@@ -7,7 +7,7 @@ import subprocess
 import time
 
 processes = set()
-max_processes = 20
+max_processes = 10
 
 # Usage
 parser = OptionParser()
@@ -29,8 +29,9 @@ if not options.src_dir or not options.dest_dir:
 src_dir = options.src_dir
 dest_dir = options.dest_dir
 
-for folder in os.listdir(src_dir):
-    for folder_lower in os.listdir(str(src_dir + "/" + folder)):
+
+for folder in sorted(os.listdir(src_dir)):
+    for folder_lower in sorted(os.listdir(str(src_dir + "/" + folder))):
         old_file_src = src_dir + "/" + folder + "/" + folder_lower
         new_file_dest = dest_dir + "/" + folder + "/"
         try:
@@ -39,7 +40,7 @@ for folder in os.listdir(src_dir):
             print "Creating Directory for", new_file_dest
             os.makedirs(str(dest_dir + "/" + folder))
 
-        command1 = "rsync -a \"" + old_file_src + "\" \"" + new_file_dest + "\""
+        command1 = "/mnt/fsstore/gosu 498:498 rsync -av --chown=498:498 --ignore-existing --progress \"" + old_file_src + "\" \"" + new_file_dest + "\""
 #        command1 = "rsync --remove-source-files -a \"" + old_file_src + "\" \"" + new_file_dest + "\""
         processes.add(subprocess.Popen(command1, shell=True))
         print "Process ", len(processes), " started on folder", str(new_file_dest + folder_lower)
