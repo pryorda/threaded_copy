@@ -40,7 +40,7 @@ for folder in sorted(os.listdir(src_dir)):
             print "Creating Directory for", new_file_dest
             os.makedirs(str(dest_dir + "/" + folder))
 
-        command1 = "/mnt/fsstore/gosu 498:498 rsync -av --chown=498:498 --ignore-existing --progress \"" + old_file_src + "\" \"" + new_file_dest + "\""
+        command1 = "rsync -av --chown=498:498 --ignore-existing --progress \"" + old_file_src + "\" \"" + new_file_dest + "\""
 #        command1 = "rsync --remove-source-files -a \"" + old_file_src + "\" \"" + new_file_dest + "\""
         processes.add(subprocess.Popen(command1, shell=True))
         print "Process ", len(processes), " started on folder", str(new_file_dest + folder_lower)
