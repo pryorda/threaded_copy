@@ -11,7 +11,7 @@ config = ConfigParser.ConfigParser()
 config.read("config.ini")
 
 processes = set()
-max_processes = int(config.get("configuration", "max_processes"))
+#max_processes = int(config.get("configuration", "max_processes"))
 
 
 # Usage
@@ -49,8 +49,8 @@ for folder in sorted(os.listdir(src_dir)):
 
         processes.add(subprocess.Popen(command1, shell=True))
         print "Process ", len(processes), " started on folder", str(new_file_dest + folder_lower)
-        while len(processes) >= max_processes:
-            max_processes = int(config.get("configuration", "max_processes"))
+        while len(processes) >= int(config.get("configuration", "max_processes")):
+            config.read("config.ini")
             time.sleep(1)
             processes.difference_update([p for p in processes if p.poll() is not None])
 
